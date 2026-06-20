@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -28,57 +29,127 @@ public class BaseTest {
     public static ExtentReports extent;
     public ExtentTest test;
 
+
     @BeforeSuite
     public void setupReport() {
+
         new File("./reports").mkdirs();
         extent = ExtentManager_Utility.createInstance();
+
     }
+
 
     @BeforeMethod
     public void initialize_n_OpenBrowser(Method method) throws IOException {
 
+
         test = extent.createTest(method.getName());
 
+
         prop = new Properties();
+
         FileInputStream fis = new FileInputStream(
-                System.getProperty("user.dir") + "\\src\\test\\resources\\config.properties"
+                System.getProperty("user.dir") 
+                + "\\src\\test\\resources\\config.properties"
         );
+
         prop.load(fis);
+
 
         String browser = prop.getProperty("browser");
 
+
         if (browser.equalsIgnoreCase("chrome")) {
+
+
             wd = new ChromeDriver();
+
+
         } else if (browser.equalsIgnoreCase("firefox")) {
-            wd = new FirefoxDriver();
-        } 
-        //wd = new FirefoxDriver();
-        
+
+
+            System.setProperty(
+                    "webdriver.gecko.driver",
+                    "C:\\WebDriver\\geckodriver.exe"
+            );
+
+
+            FirefoxOptions options = new FirefoxOptions();
+
+
+            options.setBinary(
+                    "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+            );
+
+
+            // For Jenkins execution
+            options.addArguments("--disable-gpu");
+
+
+            wd = new FirefoxDriver(options);
+
+
+        }
+
 
         wd.manage().window().maximize();
+
+
         wd.get(prop.getProperty("url"));
-        System.out.println("Current URL = " + wd.getCurrentUrl());
-        System.out.println("Title = " + wd.getTitle());
+
+
+        System.out.println("Current URL = " 
+                + wd.getCurrentUrl());
+
+
+        System.out.println("Title = " 
+                + wd.getTitle());
+
     }
+
+
 
     @AfterMethod
     public void tearDown(ITestResult result) {
 
+
         if (result.getStatus() == ITestResult.SUCCESS) {
+
+
             test.pass("Test Passed");
+
+
         } else if (result.getStatus() == ITestResult.FAILURE) {
+
+
             test.fail(result.getThrowable());
+
+
         } else if (result.getStatus() == ITestResult.SKIP) {
+
+
             test.skip("Test Skipped");
+
         }
 
-       if (wd != null) {
-           wd.quit();
+
+
+        if (wd != null) {
+
+            wd.quit();
+
         }
+
     }
+
+
 
     @AfterSuite
     public void flushReport() {
+
+
         extent.flush();
+
     }
+
 }
