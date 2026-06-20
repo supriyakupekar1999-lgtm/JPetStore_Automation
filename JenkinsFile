@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven-3.9.16'
+    }
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/supriyakupekar1999-lgtm/JPetStore_Automation.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
+        }
+    }
+}
