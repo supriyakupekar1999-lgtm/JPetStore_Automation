@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -49,12 +50,10 @@ public class BaseTest {
         if (browser.equalsIgnoreCase("chrome")) {
             wd = new ChromeDriver();
         } else if (browser.equalsIgnoreCase("firefox")) {
-             FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--headless");
-
-                wd = new FirefoxDriver(options);    
+            wd = new FirefoxDriver();
+        } 
         //wd = new FirefoxDriver();
-        }
+        
 
         wd.manage().window().maximize();
         wd.get(prop.getProperty("url"));
