@@ -49,7 +49,11 @@ public class BaseTest {
         if (browser.equalsIgnoreCase("chrome")) {
             wd = new ChromeDriver();
         } else if (browser.equalsIgnoreCase("firefox")) {
-            wd = new FirefoxDriver();
+             FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");
+
+                wd = new FirefoxDriver(options);    
+        //wd = new FirefoxDriver();
         }
 
         wd.manage().window().maximize();
