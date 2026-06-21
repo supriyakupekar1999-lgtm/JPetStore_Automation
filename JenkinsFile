@@ -8,26 +8,46 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/supriyakupekar1999-lgtm/JPetStore_Automation.git'
             }
         }
 
-        stage('Build & Test') {
+
+        stage('Verify Environment') {
             steps {
                 bat 'echo JAVA_HOME=%JAVA_HOME%'
                 bat 'java -version'
                 bat 'mvn -version'
+            }
+        }
+
+
+        stage('Run Automation Tests') {
+            steps {
                 bat 'mvn clean test'
             }
         }
     }
 
+
     post {
+
         always {
-            junit 'target/surefire-reports/*.xml'
+            echo 'Publishing TestNG Results'
+
+            junit allowEmptyResults: true,
+                  testResults: 'target/surefire-reports/*.xml'
+        }
+
+        success {
+            echo 'Automation Tests Passed Successfully'
+        }
+
+        failure {
+            echo 'Automation Tests Failed'
         }
     }
 }
