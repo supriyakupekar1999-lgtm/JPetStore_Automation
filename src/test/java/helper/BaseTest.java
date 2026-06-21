@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;   // CHANGE 1
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -63,7 +63,6 @@ public class BaseTest {
         FileInputStream fis = new FileInputStream(
 
                 System.getProperty("user.dir")
-
                 + "\\src\\test\\resources\\config.properties"
 
         );
@@ -83,13 +82,13 @@ public class BaseTest {
             wd = new ChromeDriver();
 
 
-        } 
+        }
+
 
 
         else if (browser.equalsIgnoreCase("firefox")) {
 
 
-            // CHANGE 2 START
 
             FirefoxOptions options = new FirefoxOptions();
 
@@ -99,22 +98,20 @@ public class BaseTest {
             );
 
 
-            options.addArguments("--disable-gpu");
-
-            options.addArguments("--no-sandbox");
+            // Run Firefox in Jenkins without UI
+            options.addArguments("-headless");
 
 
             wd = new FirefoxDriver(options);
-
-
-            // CHANGE 2 END
 
 
         }
 
 
 
+
         wd.manage().window().maximize();
+
 
 
         wd.get(prop.getProperty("url"));
@@ -122,13 +119,12 @@ public class BaseTest {
 
 
         System.out.println("Current URL = "
-
                 + wd.getCurrentUrl());
 
 
         System.out.println("Title = "
-
                 + wd.getTitle());
+
 
 
     }
@@ -136,8 +132,8 @@ public class BaseTest {
 
 
 
-    @AfterMethod
 
+    @AfterMethod
     public void tearDown(ITestResult result) {
 
 
@@ -148,7 +144,8 @@ public class BaseTest {
             test.pass("Test Passed");
 
 
-        } 
+        }
+
 
         else if (result.getStatus() == ITestResult.FAILURE) {
 
@@ -156,7 +153,8 @@ public class BaseTest {
             test.fail(result.getThrowable());
 
 
-        } 
+        }
+
 
         else if (result.getStatus() == ITestResult.SKIP) {
 
@@ -165,6 +163,7 @@ public class BaseTest {
 
 
         }
+
 
 
 
@@ -182,8 +181,8 @@ public class BaseTest {
 
 
 
-    @AfterSuite
 
+    @AfterSuite
     public void flushReport() {
 
 
