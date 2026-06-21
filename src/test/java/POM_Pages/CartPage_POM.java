@@ -1,74 +1,87 @@
 package POM_Pages;
 
+
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BasePage;
 
 
+
 public class CartPage_POM extends BasePage {
 
 
+    WebDriverWait wait;
+
+
+
     public CartPage_POM(WebDriver driver) {
+
         super(driver);
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
     }
 
-
-    @FindBy(xpath="//input[@name='submit'][@value='Add to Cart']")
-    private WebElement addCart;
-
-
-    @FindBy(xpath="//input[@value='Remove']")
-    private WebElement remove;
-
-
-    @FindBy(xpath="//input[@name='checkout']")
-    private WebElement checkout;
 
 
 
     public void addItem() {
 
-        WebDriverWait wait =
-                new WebDriverWait(driver, Duration.ofSeconds(15));
-
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(addCart)
+
+            ExpectedConditions.elementToBeClickable(
+
+                By.xpath("//input[@value='Add to Cart']")
+
+            )
+
         ).click();
 
+
     }
+
 
 
 
     public void removeItem() {
 
-        WebDriverWait wait =
-                new WebDriverWait(driver, Duration.ofSeconds(15));
-
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(remove)
+
+            ExpectedConditions.elementToBeClickable(
+
+                By.xpath("//input[@value='Remove']")
+
+            )
+
         ).click();
+
 
     }
 
 
 
-    public void goToCheckout() {
 
-        WebDriverWait wait =
-                new WebDriverWait(driver, Duration.ofSeconds(15));
+    public void goToCheckout() {
 
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(checkout)
+
+            ExpectedConditions.elementToBeClickable(
+
+                By.xpath("//input[@value='Proceed to Checkout']")
+
+            )
+
         ).click();
+
 
     }
 
