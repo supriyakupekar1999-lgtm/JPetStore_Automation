@@ -62,7 +62,7 @@ public class LoginPage_POM extends BasePage {
 
 
         wait.until(
-                ExpectedConditions.urlContains("Catalog")
+                ExpectedConditions.urlContains("Catalog.action")
         );
 
 
