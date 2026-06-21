@@ -2,7 +2,6 @@ package POM_Pages;
 
 import java.time.Duration;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,28 +19,55 @@ public class LoginPage_POM extends BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
+
     @FindBy(name = "username")
     private WebElement username;
+
 
     @FindBy(name = "password")
     private WebElement password;
 
+
     @FindBy(name = "signon")
     private WebElement loginBtn;
 
-    public void login(String user, String pass) {
+
+
+    public void setUsername(String user) {
 
         wait.until(ExpectedConditions.visibilityOf(username));
 
         username.clear();
         username.sendKeys(user);
+    }
+
+
+
+    public void setPassword(String pass) {
 
         password.clear();
         password.sendKeys(pass);
+    }
 
-        loginBtn.click();
+
+
+    public void clickSignOn() {
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(loginBtn)
+        ).click();
 
     }
-}
 
-    
+
+
+    // your old test also uses this
+    public void login(String user, String pass) {
+
+        setUsername(user);
+        setPassword(pass);
+        clickSignOn();
+
+    }
+
+}
