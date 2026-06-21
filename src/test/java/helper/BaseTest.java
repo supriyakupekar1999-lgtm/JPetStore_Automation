@@ -8,7 +8,9 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;   // CHANGE 1
 
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -21,84 +23,174 @@ import com.aventstack.extentreports.ExtentTest;
 
 import Utility_Files.ExtentManager_Utility;
 
+
 public class BaseTest {
 
+
     public WebDriver wd;
+
     public Properties prop;
+
     public static ExtentReports extent;
+
     public ExtentTest test;
+
+
 
     @BeforeSuite
     public void setupReport() {
 
+
         new File("./reports").mkdirs();
+
         extent = ExtentManager_Utility.createInstance();
 
+
     }
+
+
 
     @BeforeMethod
     public void initialize_n_OpenBrowser(Method method) throws IOException {
 
+
         test = extent.createTest(method.getName());
+
 
         prop = new Properties();
 
+
         FileInputStream fis = new FileInputStream(
+
                 System.getProperty("user.dir")
-                        + "\\src\\test\\resources\\config.properties");
+
+                + "\\src\\test\\resources\\config.properties"
+
+        );
+
 
         prop.load(fis);
 
+
+
         String browser = prop.getProperty("browser");
+
+
 
         if (browser.equalsIgnoreCase("chrome")) {
 
+
             wd = new ChromeDriver();
 
-        } else if (browser.equalsIgnoreCase("firefox")) {
 
-            wd = new FirefoxDriver();
+        } 
+
+
+        else if (browser.equalsIgnoreCase("firefox")) {
+
+
+            // CHANGE 2 START
+
+            FirefoxOptions options = new FirefoxOptions();
+
+
+            options.setBinary(
+                    "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+            );
+
+
+            options.addArguments("--disable-gpu");
+
+            options.addArguments("--no-sandbox");
+
+
+            wd = new FirefoxDriver(options);
+
+
+            // CHANGE 2 END
+
 
         }
+
+
 
         wd.manage().window().maximize();
 
+
         wd.get(prop.getProperty("url"));
 
+
+
         System.out.println("Current URL = "
+
                 + wd.getCurrentUrl());
 
+
         System.out.println("Title = "
+
                 + wd.getTitle());
+
+
     }
 
+
+
+
     @AfterMethod
+
     public void tearDown(ITestResult result) {
+
+
 
         if (result.getStatus() == ITestResult.SUCCESS) {
 
+
             test.pass("Test Passed");
 
-        } else if (result.getStatus() == ITestResult.FAILURE) {
+
+        } 
+
+        else if (result.getStatus() == ITestResult.FAILURE) {
+
 
             test.fail(result.getThrowable());
 
-        } else if (result.getStatus() == ITestResult.SKIP) {
+
+        } 
+
+        else if (result.getStatus() == ITestResult.SKIP) {
+
 
             test.skip("Test Skipped");
+
+
         }
+
+
 
         if (wd != null) {
 
+
             wd.quit();
 
+
         }
+
+
     }
 
+
+
+
     @AfterSuite
+
     public void flushReport() {
+
 
         extent.flush();
 
+
     }
+
+
 }
