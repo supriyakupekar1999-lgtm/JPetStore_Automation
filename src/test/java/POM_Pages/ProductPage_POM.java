@@ -4,14 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BasePage;
 
 public class ProductPage_POM extends BasePage {
 
 
+    WebDriver driver;
+
+
     public ProductPage_POM(WebDriver wd) {
         super(wd);
+        this.driver = wd;
     }
 
 
@@ -54,10 +59,14 @@ public class ProductPage_POM extends BasePage {
 
     public void waitForElement(WebElement element)
     {
-        new org.openqa.selenium.support.ui.WebDriverWait(
-                wd,
-                java.time.Duration.ofSeconds(20)
-        ).until(
+        WebDriverWait wait =
+                new WebDriverWait(
+                        driver,
+                        java.time.Duration.ofSeconds(20)
+                );
+
+
+        wait.until(
                 ExpectedConditions.elementToBeClickable(element)
         );
     }
