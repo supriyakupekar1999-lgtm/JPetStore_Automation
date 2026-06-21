@@ -9,28 +9,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BasePage;
 
+
 public class HomePage_POM extends BasePage {
 
 
     WebDriverWait wait;
 
 
-    public HomePage_POM(WebDriver driver) {
+    public HomePage_POM(WebDriver driver){
 
         super(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        wait=new WebDriverWait(driver,Duration.ofSeconds(20));
 
     }
 
 
 
-    public void clickFish() {
+    public void clickFish(){
 
 
         wait.until(
-            ExpectedConditions.elementToBeClickable(
-                By.xpath("//img[contains(@src,'sm_fish.gif')]")
-            )
+                ExpectedConditions.elementToBeClickable(
+                By.xpath("//img[contains(@src,'sm_fish.gif')]"))
         ).click();
 
 
@@ -38,14 +39,12 @@ public class HomePage_POM extends BasePage {
 
 
 
-
-    public void clickDogs() {
+    public void clickDogs(){
 
 
         wait.until(
-            ExpectedConditions.elementToBeClickable(
-                By.xpath("//img[contains(@src,'sm_dogs.gif')]")
-            )
+                ExpectedConditions.elementToBeClickable(
+                By.xpath("//img[contains(@src,'sm_dogs.gif')]"))
         ).click();
 
 
@@ -53,14 +52,12 @@ public class HomePage_POM extends BasePage {
 
 
 
-
-    public void clickCats() {
+    public void clickCats(){
 
 
         wait.until(
-            ExpectedConditions.elementToBeClickable(
-                By.xpath("//img[contains(@src,'sm_cats.gif')]")
-            )
+                ExpectedConditions.elementToBeClickable(
+                By.xpath("//img[contains(@src,'sm_cats.gif')]"))
         ).click();
 
 
@@ -68,15 +65,12 @@ public class HomePage_POM extends BasePage {
 
 
 
-
-
-    public void clickBirds() {
+    public void clickBirds(){
 
 
         wait.until(
-            ExpectedConditions.elementToBeClickable(
-                By.xpath("//img[contains(@src,'sm_birds.gif')]")
-            )
+                ExpectedConditions.elementToBeClickable(
+                By.xpath("//img[contains(@src,'sm_birds.gif')]"))
         ).click();
 
 
@@ -84,17 +78,16 @@ public class HomePage_POM extends BasePage {
 
 
 
-
-    public void clickReptiles() {
+    public void clickReptiles(){
 
 
         wait.until(
-            ExpectedConditions.elementToBeClickable(
-                By.xpath("//img[contains(@src,'sm_reptiles.gif')]")
-            )
+                ExpectedConditions.elementToBeClickable(
+                By.xpath("//img[contains(@src,'sm_reptiles.gif')]"))
         ).click();
 
 
     }
+
 
 }
