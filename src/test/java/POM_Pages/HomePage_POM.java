@@ -2,6 +2,7 @@ package POM_Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import helper.BasePage;
 
 public class HomePage_POM extends BasePage {
@@ -20,6 +21,54 @@ public class HomePage_POM extends BasePage {
         ).click();
 
         System.out.println("Fish clicked");
+    }
+
+
+    public void clickDogs() {
+
+        System.out.println("Inside clickDogs");
+
+        driver.findElement(
+                By.xpath("//img[contains(@src,'sm_dogs.gif')]")
+        ).click();
+
+        System.out.println("Dogs clicked");
+    }
+
+
+    public void clickCats() {
+
+        System.out.println("Inside clickCats");
+
+        driver.findElement(
+                By.xpath("//img[contains(@src,'sm_cats.gif')]")
+        ).click();
+
+        System.out.println("Cats clicked");
+    }
+
+
+    public void clickBirds() {
+
+        System.out.println("Inside clickBirds");
+
+        driver.findElement(
+                By.xpath("//img[contains(@src,'sm_birds.gif')]")
+        ).click();
+
+        System.out.println("Birds clicked");
+    }
+
+
+    public void clickReptiles() {
+
+        System.out.println("Inside clickReptiles");
+
+        driver.findElement(
+                By.xpath("//img[contains(@src,'sm_reptiles.gif')]")
+        ).click();
+
+        System.out.println("Reptiles clicked");
     }
 
 }
