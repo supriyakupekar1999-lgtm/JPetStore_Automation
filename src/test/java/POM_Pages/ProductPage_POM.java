@@ -20,16 +20,20 @@ public class ProductPage_POM extends BasePage {
     }
 
 
-    @FindBy(linkText="Angelfish")
+
+    @FindBy(xpath="//a[contains(text(),'FI-SW-01')]")
     WebElement angelfish;
 
 
-    @FindBy(linkText="Tiger Shark")
+
+    @FindBy(xpath="//a[contains(text(),'FI-SW-02')]")
     WebElement tigerShark;
 
 
-    @FindBy(linkText="Bulldog")
+
+    @FindBy(xpath="//a[contains(text(),'K9-BD-01')]")
     WebElement bulldog;
+
 
 
 
