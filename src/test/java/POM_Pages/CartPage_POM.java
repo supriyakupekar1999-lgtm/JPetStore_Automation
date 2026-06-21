@@ -27,6 +27,11 @@ public class CartPage_POM extends BasePage {
     private WebElement remove;
 
 
+    @FindBy(xpath="//input[@name='checkout']")
+    private WebElement checkout;
+
+
+
     public void addItem() {
 
         WebDriverWait wait =
@@ -52,5 +57,20 @@ public class CartPage_POM extends BasePage {
         ).click();
 
     }
+
+
+
+    public void goToCheckout() {
+
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(15));
+
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(checkout)
+        ).click();
+
+    }
+
 
 }
