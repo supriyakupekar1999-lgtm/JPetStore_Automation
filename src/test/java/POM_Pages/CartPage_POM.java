@@ -1,34 +1,60 @@
 package POM_Pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import helper.BasePage;
 
 public class CartPage_POM extends BasePage {
 
+    WebDriverWait wait;
+
     public CartPage_POM(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    @FindBy(xpath = "//a[contains(text(),'Add to Cart')]")
+
+    @FindBy(xpath = "//input[@value='Add to Cart']")
     private WebElement addToCart;
+
 
     @FindBy(xpath = "//a[contains(text(),'Proceed to Checkout')]")
     private WebElement checkoutBtn;
 
-    @FindBy(xpath = "//a[contains(text(),'Remove')]")
+
+    @FindBy(xpath = "//input[@value='Remove']")
     private WebElement removeItemBtn;
 
+
     public void addItem() {
-        addToCart.click();
+
+        wait.until(
+            ExpectedConditions.elementToBeClickable(addToCart)
+        ).click();
+
     }
+
 
     public void goToCheckout() {
-        checkoutBtn.click();
+
+        wait.until(
+            ExpectedConditions.elementToBeClickable(checkoutBtn)
+        ).click();
+
     }
 
+
     public void removeItem() {
-        removeItemBtn.click();
+
+        wait.until(
+            ExpectedConditions.elementToBeClickable(removeItemBtn)
+        ).click();
+
     }
 }
