@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BasePage;
 
-
 public class LoginPage_POM extends BasePage {
 
 
@@ -21,29 +20,25 @@ public class LoginPage_POM extends BasePage {
 
         super(driver);
 
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     }
 
 
-
-    @FindBy(name = "username")
+    @FindBy(name="username")
     private WebElement username;
 
 
-
-    @FindBy(name = "password")
+    @FindBy(name="password")
     private WebElement password;
 
 
-
-    @FindBy(name = "signon")
+    @FindBy(name="signon")
     private WebElement loginBtn;
 
 
 
-
-    public void setUsername(String user) {
+    public void login(String user,String pass){
 
 
         wait.until(
@@ -52,68 +47,22 @@ public class LoginPage_POM extends BasePage {
 
 
         username.clear();
-
         username.sendKeys(user);
-
-    }
-
-
-
-
-
-    public void setPassword(String pass) {
-
-
-        wait.until(
-                ExpectedConditions.visibilityOf(password)
-        );
 
 
         password.clear();
-
         password.sendKeys(pass);
 
-    }
-
-
-
-
-
-    public void clickSignOn() {
 
 
         wait.until(
-
                 ExpectedConditions.elementToBeClickable(loginBtn)
-
         ).click();
 
 
-    }
-
-
-
-
-
-    public void login(String user, String pass) {
-
-
-        setUsername(user);
-
-
-        setPassword(pass);
-
-
-        clickSignOn();
-
-
-
-        // wait until login completes and catalog page loads
 
         wait.until(
-
                 ExpectedConditions.urlContains("Catalog")
-
         );
 
 
