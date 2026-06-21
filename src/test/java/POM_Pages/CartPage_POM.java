@@ -1,80 +1,34 @@
 package POM_Pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import helper.BasePage;
-
 
 public class CartPage_POM extends BasePage {
 
-
-    WebDriverWait wait;
-
-
     public CartPage_POM(WebDriver driver) {
-
         super(driver);
-
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
     }
 
+    @FindBy(xpath = "//a[contains(text(),'Add to Cart')]")
+    private WebElement addToCart;
 
+    @FindBy(xpath = "//a[contains(text(),'Proceed to Checkout')]")
+    private WebElement checkoutBtn;
 
-    @FindBy(xpath="//input[@value='Add to Cart']")
-    private WebElement addCart;
-
-
-
-    @FindBy(xpath="//input[@value='Remove']")
-    private WebElement remove;
-
-
-
-    @FindBy(xpath="//input[@value='Proceed to Checkout']")
-    private WebElement checkout;
-
-
+    @FindBy(xpath = "//a[contains(text(),'Remove')]")
+    private WebElement removeItemBtn;
 
     public void addItem() {
-
-
-        wait.until(
-                ExpectedConditions.elementToBeClickable(addCart)
-        ).click();
-
-
+        addToCart.click();
     }
-
-
-
-    public void removeItem() {
-
-
-        wait.until(
-                ExpectedConditions.elementToBeClickable(remove)
-        ).click();
-
-
-    }
-
-
 
     public void goToCheckout() {
-
-
-        wait.until(
-                ExpectedConditions.elementToBeClickable(checkout)
-        ).click();
-
-
+        checkoutBtn.click();
     }
 
-
+    public void removeItem() {
+        removeItemBtn.click();
+    }
 }
