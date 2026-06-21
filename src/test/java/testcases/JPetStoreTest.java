@@ -9,7 +9,6 @@ import POM_Pages.CheckoutPage_POM;
 import POM_Pages.HomePage_POM;
 import POM_Pages.LoginPage_POM;
 import POM_Pages.ProductPage_POM;
-import POM_Pages.RegistrationPage_POM;
 import helper.BaseTest;
 
 
@@ -24,11 +23,13 @@ public class JPetStoreTest extends BaseTest {
         LoginPage_POM login = new LoginPage_POM(wd);
 
 
-        login.enterUsername("j2ee");
+        login.setUsername("j2ee");
 
-        login.enterPassword("j2ee");
 
-        login.clickLogin();
+        login.setPassword("j2ee");
+
+
+        login.clickSignOn();
 
 
 
@@ -36,7 +37,10 @@ public class JPetStoreTest extends BaseTest {
                 wd.getTitle().contains("JPetStore")
         );
 
+
     }
+
+
 
 
 
@@ -60,24 +64,35 @@ public class JPetStoreTest extends BaseTest {
 
 
 
+
+
     @Test
     public void verifyAddToCart() {
 
 
-        HomePage_POM home = new HomePage_POM(wd);
+
+        HomePage_POM home =
+                new HomePage_POM(wd);
+
+
 
         ProductPage_POM product =
                 new ProductPage_POM(wd);
+
+
 
         CartPage_POM cart =
                 new CartPage_POM(wd);
 
 
 
+
         home.clickFish();
 
 
-        product.clickAngelfish();
+
+        product.clickFishProduct();
+
 
 
         cart.addItem();
@@ -85,6 +100,7 @@ public class JPetStoreTest extends BaseTest {
 
 
     }
+
 
 
 
@@ -93,11 +109,15 @@ public class JPetStoreTest extends BaseTest {
     public void verifyRemoveFromCart() {
 
 
-        HomePage_POM home = new HomePage_POM(wd);
+
+        HomePage_POM home =
+                new HomePage_POM(wd);
+
 
 
         ProductPage_POM product =
                 new ProductPage_POM(wd);
+
 
 
         CartPage_POM cart =
@@ -105,13 +125,17 @@ public class JPetStoreTest extends BaseTest {
 
 
 
+
         home.clickFish();
 
 
-        product.clickAngelfish();
+
+        product.clickFishProduct();
+
 
 
         cart.addItem();
+
 
 
         cart.removeItem();
@@ -119,6 +143,8 @@ public class JPetStoreTest extends BaseTest {
 
 
     }
+
+
 
 
 
@@ -155,13 +181,17 @@ public class JPetStoreTest extends BaseTest {
 
 
 
+
         // Login
 
-        login.enterUsername("j2ee");
+        login.setUsername("j2ee");
 
-        login.enterPassword("j2ee");
 
-        login.clickLogin();
+        login.setPassword("j2ee");
+
+
+        login.clickSignOn();
+
 
 
 
@@ -172,26 +202,31 @@ public class JPetStoreTest extends BaseTest {
 
 
 
+
+
         // Select Product
 
-        product.clickAngelfish();
+        product.clickFishProduct();
 
 
 
 
-        // Add Cart
+
+        // Add to cart
 
         cart.addItem();
 
 
 
 
+
         // Checkout
 
-        checkout.clickCheckout();
+        checkout.clickConfirm();
 
 
 
     }
+
 
 }
