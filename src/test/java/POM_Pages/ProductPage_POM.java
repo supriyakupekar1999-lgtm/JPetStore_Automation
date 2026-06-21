@@ -29,17 +29,17 @@ wait=new WebDriverWait(driver,Duration.ofSeconds(20));
 
 
 
-@FindBy(xpath="//a[text()='FI-SW-01']")
+@FindBy(xpath="//a[contains(text(),'FI-SW-01')]")
 WebElement Angelfish;
 
 
 
-@FindBy(xpath="//a[text()='FI-SW-02']")
+@FindBy(xpath="//a[contains(text(),'FI-SW-02')]")
 WebElement tigerShark;
 
 
 
-@FindBy(xpath="//a[text()='K9-BD-01']")
+@FindBy(xpath="//a[contains(text(),'K9-BD-01')]")
 WebElement Bulldog;
 
 
