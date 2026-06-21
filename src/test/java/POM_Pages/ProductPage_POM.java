@@ -1,37 +1,29 @@
 package POM_Pages;
 
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BasePage;
+
+
 
 public class ProductPage_POM extends BasePage {
 
 
+    WebDriverWait wait;
+
+
     public ProductPage_POM(WebDriver driver) {
+
         super(driver);
-    }
 
-
-
-    @FindBy(xpath = "//*[@id='Catalog']//a[text()='FI-SW-01']")
-    private WebElement Angelfish;
-
-
-    @FindBy(xpath = "//*[@id='Catalog']//a[text()='FI-SW-02']")
-    private WebElement tigerShark;
-
-
-    @FindBy(xpath = "//*[@id='Catalog']//a[text()='K9-BD-01']")
-    private WebElement Bulldog;
-
-
-
-    // method required by your JPetStoreTest
-    public void clickFishProduct(){
-
-        Angelfish.click();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     }
 
@@ -39,24 +31,47 @@ public class ProductPage_POM extends BasePage {
 
     public void selectAngelfish() {
 
-        Angelfish.click();
+
+        wait.until(
+            ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[contains(text(),'FI-SW-01')]")
+            )
+        ).click();
+
 
     }
+
 
 
 
     public void selectTigerShark() {
 
-        tigerShark.click();
+
+        wait.until(
+            ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[contains(text(),'FI-SW-02')]")
+            )
+        ).click();
+
 
     }
+
+
 
 
 
     public void selectBulldog() {
 
-        Bulldog.click();
+
+        wait.until(
+            ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[contains(text(),'K9-BD-01')]")
+            )
+        ).click();
+
 
     }
+
+
 
 }
