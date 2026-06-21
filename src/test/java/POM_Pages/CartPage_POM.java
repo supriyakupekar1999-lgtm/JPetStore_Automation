@@ -27,17 +27,17 @@ public class CartPage_POM extends BasePage {
 
 
 
-    @FindBy(name = "addToCart")
+    @FindBy(xpath="//input[@value='Add to Cart']")
     private WebElement addCart;
 
 
 
-    @FindBy(name = "remove")
+    @FindBy(xpath="//input[@value='Remove']")
     private WebElement remove;
 
 
 
-    @FindBy(name = "checkout")
+    @FindBy(xpath="//input[@value='Proceed to Checkout']")
     private WebElement checkout;
 
 
