@@ -3,6 +3,8 @@ package POM_Pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import helper.BasePage;
 
 public class ProductPage_POM extends BasePage {
@@ -17,10 +19,8 @@ public class ProductPage_POM extends BasePage {
     WebElement angelfish;
 
 
-
     @FindBy(linkText="Tiger Shark")
     WebElement tigerShark;
-
 
 
     @FindBy(linkText="Bulldog")
@@ -30,11 +30,7 @@ public class ProductPage_POM extends BasePage {
 
     public void selectAngelfish()
     {
-        wait.until(
-            org.openqa.selenium.support.ui.ExpectedConditions
-            .elementToBeClickable(angelfish)
-        );
-
+        waitForElement(angelfish);
         angelfish.click();
     }
 
@@ -42,11 +38,7 @@ public class ProductPage_POM extends BasePage {
 
     public void selectTigerShark()
     {
-        wait.until(
-            org.openqa.selenium.support.ui.ExpectedConditions
-            .elementToBeClickable(tigerShark)
-        );
-
+        waitForElement(tigerShark);
         tigerShark.click();
     }
 
@@ -54,12 +46,20 @@ public class ProductPage_POM extends BasePage {
 
     public void selectBulldog()
     {
-        wait.until(
-            org.openqa.selenium.support.ui.ExpectedConditions
-            .elementToBeClickable(bulldog)
-        );
-
+        waitForElement(bulldog);
         bulldog.click();
+    }
+
+
+
+    public void waitForElement(WebElement element)
+    {
+        new org.openqa.selenium.support.ui.WebDriverWait(
+                wd,
+                java.time.Duration.ofSeconds(20)
+        ).until(
+                ExpectedConditions.elementToBeClickable(element)
+        );
     }
 
 }
