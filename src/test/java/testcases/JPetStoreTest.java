@@ -15,6 +15,7 @@ import helper.BaseTest;
 
 public class JPetStoreTest extends BaseTest {
 
+
     @Test(priority = 1)
     public void verifyRegistration() throws Exception {
 
@@ -25,6 +26,7 @@ public class JPetStoreTest extends BaseTest {
 
         String path = System.getProperty("user.dir")
                 + "\\src\\test\\resources\\TestData.xlsx";
+
 
         String userId =
                 Excel_Utility.getCellData(path,"RegistrationData",1,0);
@@ -62,6 +64,7 @@ public class JPetStoreTest extends BaseTest {
         String country =
                 Excel_Utility.getCellData(path,"RegistrationData",1,11);
 
+
         reg.registerUser(
                 userId,
                 password,
@@ -74,181 +77,209 @@ public class JPetStoreTest extends BaseTest {
                 city,
                 state,
                 zip,
-                country);
+                country
+        );
+
         Thread.sleep(2000);
     }
-    
-    @Test(priority = 2)
+
+
+
+    @Test(priority = 2, dependsOnMethods="verifyRegistration")
     public void verifyLogin() throws Exception {
+
 
         String excelPath = System.getProperty("user.dir")
                 + "\\src\\test\\resources\\TestData.xlsx";
 
+
         String username =
                 Excel_Utility.getCellData(excelPath, "LoginData", 1, 0);
+
 
         String password =
                 Excel_Utility.getCellData(excelPath, "LoginData", 1, 1);
 
-        LoginPage_POM login = new LoginPage_POM(wd);
+
+        LoginPage_POM login =
+                new LoginPage_POM(wd);
+
 
         login.login(username, password);
+
+
         Thread.sleep(2000);
-        Assert.assertTrue(wd.getPageSource().contains("Welcome"));
+
+
+        Assert.assertTrue(
+                wd.getPageSource().contains("Welcome")
+        );
     }
-    
-    @Test(priority = 3)
+
+
+
+    @Test(priority = 3, dependsOnMethods="verifyLogin")
     public void verifyFishCategory() throws Exception {
 
-    	String excelPath =
-    	        System.getProperty("user.dir")
-    	        + "\\src\\test\\resources\\TestData.xlsx";
 
-    	String username =
-    	        Excel_Utility.getCellData(excelPath, "LoginData", 1, 0);
+        HomePage_POM home =
+                new HomePage_POM(wd);
 
-    	String password =
-    	        Excel_Utility.getCellData(excelPath, "LoginData", 1, 1);
 
-    	LoginPage_POM login = new LoginPage_POM(wd);
-    	
-    	login.login(username, password);
+        home.clickFish();
 
-        HomePage_POM home = new HomePage_POM(wd);
-               home.clickFish();
+
         Thread.sleep(2000);
+
 
         System.out.println("Fish Category Opened");
     }
-    @Test(priority = 4)
+
+
+
+    @Test(priority = 4, dependsOnMethods="verifyFishCategory")
     public void verifyAddToCart() throws Exception {
 
-    	String excelPath =
-    	        System.getProperty("user.dir")
-    	        + "\\src\\test\\resources\\TestData.xlsx";
 
-    	String username =
-    	        Excel_Utility.getCellData(excelPath, "LoginData", 1, 0);
+        ProductPage_POM product =
+                new ProductPage_POM(wd);
 
-    	String password =
-    	        Excel_Utility.getCellData(excelPath, "LoginData", 1, 1);
 
-    	LoginPage_POM login = new LoginPage_POM(wd);
-    	
-    	login.login(username, password);
+        product.selectAngelfish();
 
-        HomePage_POM home = new HomePage_POM(wd);
-               home.clickFish();
-               Thread.sleep(2000);
 
-        ProductPage_POM product = new ProductPage_POM(wd);
-               product.selectAngelfish();
-               Thread.sleep(2000);
+        Thread.sleep(2000);
 
-        CartPage_POM cart = new CartPage_POM(wd);
-                cart.addItem();
-                Thread.sleep(2000);
+
+        CartPage_POM cart =
+                new CartPage_POM(wd);
+
+
+        cart.addItem();
+
+
+        Thread.sleep(2000);
+
 
         System.out.println("Product Added To Cart");
     }
-    @Test(priority = 5)
+
+
+
+    @Test(priority = 5, dependsOnMethods="verifyAddToCart")
     public void verifyRemoveFromCart() throws Exception {
 
-    	String excelPath =
-    	        System.getProperty("user.dir")
-    	        + "\\src\\test\\resources\\TestData.xlsx";
 
-    	String username =
-    	        Excel_Utility.getCellData(excelPath, "LoginData", 1, 0);
+        CartPage_POM cart =
+                new CartPage_POM(wd);
 
-    	String password =
-    	        Excel_Utility.getCellData(excelPath, "LoginData", 1, 1);
 
-    	LoginPage_POM login = new LoginPage_POM(wd);
-    	 Thread.sleep(1000);
-    	login.login(username, password);
+        cart.removeItem();
 
-        HomePage_POM home = new HomePage_POM(wd);
-        
-        home.clickFish();
+
         Thread.sleep(1000);
 
-        ProductPage_POM product = new ProductPage_POM(wd);
-                product.selectAngelfish();
-        Thread.sleep(1000);
 
-        CartPage_POM cart = new CartPage_POM(wd);
-        Thread.sleep(1000);
-        cart.addItem();
-                cart.removeItem(); 
-        Thread.sleep(1000);
         System.out.println("Item Removed");
     }
 
-    @Test(priority = 6)
+
+
+    @Test(priority = 6, dependsOnMethods="verifyRemoveFromCart")
     public void endToEndFlow() throws Exception {
+
 
         String excelPath =
                 System.getProperty("user.dir")
                 + "\\src\\test\\resources\\TestData.xlsx";
 
+
         String username =
                 Excel_Utility.getCellData(excelPath, "ProductData", 1, 0);
+
 
         String password =
                 Excel_Utility.getCellData(excelPath, "ProductData", 1, 1);
 
+
         String category =
                 Excel_Utility.getCellData(excelPath, "ProductData", 1, 2);
+
 
         String productId =
                 Excel_Utility.getCellData(excelPath, "ProductData", 1, 3);
 
-        LoginPage_POM login = new LoginPage_POM(wd);
-        Thread.sleep(1000);
+
+
+        LoginPage_POM login =
+                new LoginPage_POM(wd);
+
+
         login.login(username, password);
 
-        HomePage_POM home = new HomePage_POM(wd);
-        Thread.sleep(1000);
-        if (category.equalsIgnoreCase("Fish")) {
-        	
+
+
+        HomePage_POM home =
+                new HomePage_POM(wd);
+
+
+
+        if(category.equalsIgnoreCase("Fish")) {
+
             home.clickFish();
-        } else if (category.equalsIgnoreCase("Dogs")) {
-            home.clickDogs();
-        } else if (category.equalsIgnoreCase("Cats")) {
-            home.clickCats();
-        } else if (category.equalsIgnoreCase("Birds")) {
-            home.clickBirds();
-        } else if (category.equalsIgnoreCase("Reptiles")) {
-            home.clickReptiles();
+
         }
 
-        ProductPage_POM product = new ProductPage_POM(wd);
-        Thread.sleep(1000);
-        if (productId.equalsIgnoreCase("FI-SW-01")) {
+
+
+        ProductPage_POM product =
+                new ProductPage_POM(wd);
+
+
+
+        if(productId.equalsIgnoreCase("FI-SW-01")) {
+
             product.selectAngelfish();
-        } else if (productId.equalsIgnoreCase("FI-SW-02")) {
-            product.selectTigerShark();
-        } else if (productId.equalsIgnoreCase("K9-BD-01")) {
-            product.selectBulldog();
+
         }
 
-        CartPage_POM cart = new CartPage_POM(wd);
-        Thread.sleep(1000);
+
+
+        CartPage_POM cart =
+                new CartPage_POM(wd);
+
+
         cart.addItem();
-        Thread.sleep(1000);
+
+
         cart.goToCheckout();
 
-        CheckoutPage_POM checkout = new CheckoutPage_POM(wd);
-        Thread.sleep(1000);
+
+
+        CheckoutPage_POM checkout =
+                new CheckoutPage_POM(wd);
+
+
+
         checkout.continueCheckout();
-        Thread.sleep(1000);
+
+
         checkout.confirmOrder();
-        Thread.sleep(1000);
-        String msg = checkout.getSuccessMessage();
-       
-        Assert.assertTrue(msg.contains("Thank you"));
+
+
+
+        String msg =
+                checkout.getSuccessMessage();
+
+
+
+        Assert.assertTrue(
+                msg.contains("Thank you")
+        );
+
 
         System.out.println("===== TEST PASSED =====");
+
     }
+
 }
