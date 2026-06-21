@@ -10,51 +10,47 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helper.BasePage;
 
+
 public class CartPage_POM extends BasePage {
 
-    WebDriverWait wait;
 
     public CartPage_POM(WebDriver driver) {
         super(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
 
-    @FindBy(xpath = "//input[@value='Add to Cart']")
-    private WebElement addToCart;
+    @FindBy(xpath="//input[@name='submit'][@value='Add to Cart']")
+    private WebElement addCart;
 
 
-    @FindBy(xpath = "//a[contains(text(),'Proceed to Checkout')]")
-    private WebElement checkoutBtn;
-
-
-    @FindBy(xpath = "//input[@value='Remove']")
-    private WebElement removeItemBtn;
+    @FindBy(xpath="//input[@value='Remove']")
+    private WebElement remove;
 
 
     public void addItem() {
 
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(15));
+
+
         wait.until(
-            ExpectedConditions.elementToBeClickable(addToCart)
+                ExpectedConditions.elementToBeClickable(addCart)
         ).click();
 
     }
 
-
-    public void goToCheckout() {
-
-        wait.until(
-            ExpectedConditions.elementToBeClickable(checkoutBtn)
-        ).click();
-
-    }
 
 
     public void removeItem() {
 
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(15));
+
+
         wait.until(
-            ExpectedConditions.elementToBeClickable(removeItemBtn)
+                ExpectedConditions.elementToBeClickable(remove)
         ).click();
 
     }
+
 }
